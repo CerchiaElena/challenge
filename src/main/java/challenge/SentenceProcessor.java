@@ -12,7 +12,7 @@ import static java.util.stream.Collectors.joining;
 public class SentenceProcessor {
 
     private static final String DELIMITER = " ";
-    private static final String PUNCTUATION_MARKS = "([.-?!:;,\"'])";
+    private static final String PUNCTUATION_MARKS = "([.-?!:;,\"'{}()-])";
 
     public String getLongestWordInSentence(String sentence) {
         TreeMap<Integer, String> sortedGroupings = getWordsGroupedByLength(sentence);
