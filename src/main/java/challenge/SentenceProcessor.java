@@ -19,6 +19,7 @@ public class SentenceProcessor {
     }
 
     private TreeMap<Integer, String> getWordsGroupedByLength(String sentence) {
+        validateSentence(sentence);
         String[] wordsInPhrase = sentence.split(DELIMITER);
         List<String> wordsAsList = Arrays.asList(wordsInPhrase);
         Map<Integer, String> wordsGroupedByLength = wordsAsList.stream()
@@ -26,5 +27,20 @@ public class SentenceProcessor {
 
         TreeMap<Integer, String> sortedGroupings = new TreeMap<>(wordsGroupedByLength);
         return sortedGroupings;
+    }
+
+    private void validateSentence(String sentence) {
+        if (sentence == null || sentence.trim().isEmpty() || !hasLetters(sentence)) {
+            throw new RuntimeException("A sentence needs to have at least 1 word");
+        }
+    }
+
+    private boolean hasLetters(String sentence) {
+        for (char character : sentence.toCharArray()) {
+            if  (Character.isLetter(character)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

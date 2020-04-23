@@ -2,8 +2,11 @@ package challenge;
 
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class SentenceProcessorTest {
 
@@ -19,5 +22,14 @@ class SentenceProcessorTest {
         SentenceProcessor processor = new SentenceProcessor();
         String result = processor.getLongestWordInSentence("yes");
         assertThat(result).isEqualTo("yes 3");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", " ", "  ", "   ", "."})
+    public void testEmptyList(String sentence) {
+        SentenceProcessor processor = new SentenceProcessor();
+        Exception exception = assertThrows(RuntimeException.class, () -> processor.getLongestWordInSentence(sentence));
+        String expectedMessage = "A sentence needs to have at least 1 word";
+        assertThat(exception.getMessage()).isEqualTo(expectedMessage);
     }
 }
