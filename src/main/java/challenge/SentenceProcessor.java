@@ -12,6 +12,7 @@ import static java.util.stream.Collectors.joining;
 public class SentenceProcessor {
 
     private static final String DELIMITER = " ";
+    private static final String PUNCTUATION_MARKS = "([.-?!:;,\"'])";
 
     public String getLongestWordInSentence(String sentence) {
         TreeMap<Integer, String> sortedGroupings = getWordsGroupedByLength(sentence);
@@ -20,11 +21,12 @@ public class SentenceProcessor {
 
     public String getShortestWordInSentence(String sentence) {
         TreeMap<Integer, String> sortedGroupings = getWordsGroupedByLength(sentence);
-        return sortedGroupings.get(sortedGroupings.firstKey()) + " " + sortedGroupings.firstKey() ;
+        return sortedGroupings.get(sortedGroupings.firstKey()) + " " + sortedGroupings.firstKey();
     }
 
     private TreeMap<Integer, String> getWordsGroupedByLength(String sentence) {
         validateSentence(sentence);
+        sentence = removePunctuationMarks(sentence);
         String[] wordsInPhrase = sentence.split(DELIMITER);
         List<String> wordsAsList = Arrays.asList(wordsInPhrase);
         Map<Integer, String> wordsGroupedByLength = wordsAsList.stream()
@@ -42,10 +44,14 @@ public class SentenceProcessor {
 
     private boolean hasLetters(String sentence) {
         for (char character : sentence.toCharArray()) {
-            if  (Character.isLetter(character)) {
+            if (Character.isLetter(character)) {
                 return true;
             }
         }
         return false;
+    }
+
+    private String removePunctuationMarks(String sentence) {
+        return sentence.replaceAll(PUNCTUATION_MARKS, "");
     }
 }
