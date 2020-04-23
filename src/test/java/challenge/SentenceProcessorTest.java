@@ -18,6 +18,13 @@ class SentenceProcessorTest {
     }
 
     @Test
+    public void testLongestWordPunctuationCollision() {
+        SentenceProcessor processor = new SentenceProcessor();
+        String longestWord = processor.getLongestWordInSentence("The cow jumped over the moon..");
+        assertThat(longestWord).isEqualTo("jumped 6");
+    }
+
+    @Test
     public void testOneWordSentence() {
         SentenceProcessor processor = new SentenceProcessor();
         String resultShortest = processor.getShortestWordInSentence("yes");
