@@ -1,15 +1,23 @@
 package challenge;
 
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SentenceProcessorTest {
 
     @Test
-    public void testProcessorHappyPath() {
+    public void testLongestWordHappyPath() {
         SentenceProcessor processor = new SentenceProcessor();
-        Assertions.assertThat(processor).isNotNull();
+        String longestWord = processor.getLongestWordInSentence("The cow jumped over the moon.");
+        assertThat(longestWord).isEqualTo("jumped 6");
     }
 
+    @Test
+    public void testOneWordSentence() {
+        SentenceProcessor processor = new SentenceProcessor();
+        String result = processor.getLongestWordInSentence("yes");
+        assertThat(result).isEqualTo("yes 3");
+    }
 }
