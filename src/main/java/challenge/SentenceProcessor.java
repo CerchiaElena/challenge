@@ -18,6 +18,11 @@ public class SentenceProcessor {
         return sortedGroupings.get(sortedGroupings.lastKey()) + " " + sortedGroupings.lastKey();
     }
 
+    public String getShortestWordInSentence(String sentence) {
+        TreeMap<Integer, String> sortedGroupings = getWordsGroupedByLength(sentence);
+        return sortedGroupings.get(sortedGroupings.firstKey()) + " " + sortedGroupings.firstKey() ;
+    }
+
     private TreeMap<Integer, String> getWordsGroupedByLength(String sentence) {
         validateSentence(sentence);
         String[] wordsInPhrase = sentence.split(DELIMITER);

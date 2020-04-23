@@ -20,8 +20,10 @@ class SentenceProcessorTest {
     @Test
     public void testOneWordSentence() {
         SentenceProcessor processor = new SentenceProcessor();
-        String result = processor.getLongestWordInSentence("yes");
-        assertThat(result).isEqualTo("yes 3");
+        String resultShortest = processor.getShortestWordInSentence("yes");
+        String resultLongest = processor.getLongestWordInSentence("yes");
+        assertThat(resultShortest).isEqualTo(resultLongest);
+        assertThat(resultLongest).isEqualTo("yes 3");
     }
 
     @ParameterizedTest
@@ -31,5 +33,12 @@ class SentenceProcessorTest {
         Exception exception = assertThrows(RuntimeException.class, () -> processor.getLongestWordInSentence(sentence));
         String expectedMessage = "A sentence needs to have at least 1 word";
         assertThat(exception.getMessage()).isEqualTo(expectedMessage);
+    }
+
+    @Test
+    public void testShortestWordHappyPath() {
+        SentenceProcessor processor = new SentenceProcessor();
+        String longestWord = processor.getShortestWordInSentence("The cow jumped over the moon.");
+        assertThat(longestWord).isEqualTo("The cow the 3");
     }
 }
